@@ -4,7 +4,8 @@
         
         for( $page = 0; $page <= 1; $page++ ) {
             
-            $output = '';
+            $title = $year . ', page ' . ( $page + 1 );
+            $content = '';
             
             for( $month = $page * 6 + 1; $month <= $page * 1 + 7; $month++ ) {
                 
@@ -18,7 +19,16 @@
                 
             }
             
-            file_put_contents( 'output/' . $year . '-' . $pape . '.html', $output );
+            $output = str_replace(
+                [ '[TITLE]', '[CONTENT]' ],
+                [ $title, $content ],
+                file_get_contents( 'template.html' )
+            );
+            
+            file_put_contents(
+                'output/' . $year . '-' . ( $page + 1 ) . '.html',
+                $output
+            );
             
         }
         
