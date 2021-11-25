@@ -8,6 +8,22 @@
     
     function run( int $year ) {
         
+        logging( 'fetch holiday data' );
+        
+        $holidays = json_decode( file_get_contents( __DIR__ . '/config/holiday.json' ), true );
+        
+        $holiday_days = $holidays['discrete'];
+        
+        foreach( $holidays['range'] as $range ) {
+            
+            for( $i = strtotime( $range['from'] ); $i <= strtotime( $range['to'] ); $i += 86400 ) {
+                
+                $holiday_days[] = date( 'Y-m-d', $i );
+                
+            }
+            
+        }
+        
         logging( 'build almanac for year ' . $year );
         
         for( $page = 0; $page <= 1; $page++ ) {
@@ -34,7 +50,10 @@
                     $the_day = mktime( 0, 0, 0, $month, $day, $year );
                     $week_day = date( 'l', $the_day );
                     
-                    $content .= '<day ' . strtolower( $week_day ) . '>' .
+                    $content .= '<day ' . strtolower( $week_day ) . (
+                        in_array( date( 'Y-m-d', $the_day ), $holiday_days )
+                            ? ' holiday' : ''
+                    ) . '>' .
                         '<number>' . date( 'd', $the_day ) . '</number>' .
                         ( $week_day == 'Monday' ? '<week>' . date( 'W', $the_day ) . '</week>' : '' ) .
                     '</day>';
