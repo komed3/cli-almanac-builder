@@ -54,10 +54,18 @@
                         in_array( date( 'Y-m-d', $the_day ), $holidays )
                             ? ' holiday' : ''
                     ) . (
-                        in_array( date( 'Y-m-d', $the_day ), $free['free'] )
-                            ? ' free' : ''
+                        array_key_exists( date( 'Y-m-d', $the_day ), $free['events'] )
+                            ? ' event' : ''
                     ) . '>' .
                         '<number>' . date( 'd', $the_day ) . '</number>' .
+                        '<name>' . [
+                            'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'
+                        ][ date( 'w', $the_day ) ] . '</name>' .
+                        (
+                            array_key_exists( date( 'Y-m-d', $the_day ), $free['events'] )
+                            ? '<event>' . $free['events'][ date( 'Y-m-d', $the_day ) ] . '</event>' : ''
+                        ) .
+                        '<space></space>' .
                         ( $week_day == 'Monday' ? '<week>' . date( 'W', $the_day ) . '</week>' : '' ) .
                     '</day>';
                     

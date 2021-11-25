@@ -36,7 +36,7 @@
                 flex: 1;
                 display: flex;
                 flex-flow: column nowrap;
-                padding: 2px 3px;
+                padding: 2.5px 3px;
                 overflow: hidden;
             }
             
@@ -45,7 +45,7 @@
             }
             
             month h2 {
-                margin: 0 0 4px 0;
+                margin: 0 0 5px 0;
                 padding: 3px;
                 text-align: center;
                 text-transform: uppercase;
@@ -61,7 +61,7 @@
                 display: flex;
                 flex-flow: row nowrap;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-end;
                 margin: 1px 0;
                 padding: 3px 5px;
                 color: #1f3453;
@@ -77,7 +77,8 @@
                 background: #c8d4ea;
             }
             
-            month day[free]::before {
+            month day[holiday]::before,
+            month day[event]::before {
                 content: "";
                 position: absolute;
                 top: 0;
@@ -85,28 +86,40 @@
                 right: 0;
                 bottom: 0;
                 background: #e3c9a6;
-                opacity: 0.4;
+                opacity: 0.3;
             }
             
-            month day[holiday]::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                width: 27px;
-                background: #e3c9a6;
+            month day[event]::before {
                 opacity: 0.8;
             }
             
             month day number {
+                padding-right: 4px;
                 font-size: 13px;
+                z-index: 1;
                 font-weight: 700;
+            }
+            
+            month day name {
+                padding-right: 4px;
+                font-size: 12px;
                 z-index: 1;
             }
             
+            month day event {
+                padding-right: 4px;
+                font-size: 11px;
+                font-style: italic;
+                opacity: 0.7;
+                z-index: 1;
+            }
+            
+            month day space {
+                flex: 1;
+            }
+            
             month day week {
-                float: right;
+                text-align: right;
                 font-size: 10px;
                 font-weight: 700;
                 opacity: 0.5;
