@@ -10,15 +10,15 @@
         
         logging( 'fetch holiday data' );
         
-        $holidays = json_decode( file_get_contents( __DIR__ . '/config/holiday.json' ), true );
+        $free = json_decode( file_get_contents( __DIR__ . '/config/free.json' ), true );
         
-        $holiday_days = $holidays['discrete'];
+        $holidays = [];
         
-        foreach( $holidays['range'] as $range ) {
+        foreach( $free['holidays'] as $range ) {
             
             for( $i = strtotime( $range['from'] ); $i <= strtotime( $range['to'] ); $i += 86400 ) {
                 
-                $holiday_days[] = date( 'Y-m-d', $i );
+                $holidays[] = date( 'Y-m-d', $i );
                 
             }
             
@@ -35,7 +35,7 @@
             $title = $year . ' &ndash; page ' . $pageno . '/2';
             $content = '';
             
-            for( $month = $page * 6 + 1; $month <= $page * 1 + 7; $month++ ) {
+            for( $month = $page * 6 + 1; $month <= $page * 6 + 6; $month++ ) {
                 
                 $the_month = mktime( 0, 0, 0, $month, 1, $year );
                 $month_name = date( 'F', $the_month );
@@ -51,8 +51,11 @@
                     $week_day = date( 'l', $the_day );
                     
                     $content .= '<day ' . strtolower( $week_day ) . (
-                        in_array( date( 'Y-m-d', $the_day ), $holiday_days )
+                        in_array( date( 'Y-m-d', $the_day ), $holidays )
                             ? ' holiday' : ''
+                    ) . (
+                        in_array( date( 'Y-m-d', $the_day ), $free['free'] )
+                            ? ' free' : ''
                     ) . '>' .
                         '<number>' . date( 'd', $the_day ) . '</number>' .
                         ( $week_day == 'Monday' ? '<week>' . date( 'W', $the_day ) . '</week>' : '' ) .
