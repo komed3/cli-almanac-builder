@@ -1,8 +1,18 @@
 <?php
     
+    function logging( string $msg ) {
+        
+        echo '[' . date( 'm/d/Y H:i:s' ) . '] ' . $msg . PHP_EOL;
+        
+    }
+    
     function run( int $year ) {
         
+        logging( 'build almanac for year ' . $year . ' ...' );
+        
         for( $page = 0; $page <= 1; $page++ ) {
+            
+            logging( 'build page ' . ( $page + 1 ) . ' of 2 ...' );
             
             $title = $year . ', page ' . ( $page + 1 );
             $content = '';
@@ -12,6 +22,8 @@
                 $the_month = mktime( 0, 0, 0, $month, 1, $year );
                 $month_name = date( 'F', $the_month );
                 
+                logging( 'build month ' . $month_name . ' of ' . $year . ' ...' );
+                
                 $content .= '<month ' . strtolower( $month_name ) . '>' .
                     '<name>' . $month_name . '</name>' .
                     '<days>';
@@ -19,16 +31,23 @@
                 for( $day = 1; $day <= date( 't', $the_month ); $day++ ) {
                     
                     $the_day = mktime( 0, 0, 0, $month, $day, $year );
+                    $week_day = date( 'l', $the_day );
                     
-                    $content .= '<day ' . strtolower( date( 'l', $the_day ) ) . '>' .
+                    $content .= '<day ' . strtolower( $week_day ) . '>' .
                         '<number>' . date( 'j', $the_day ) . '</number>' .
+                        ( $week_day == 'Monday' ? '<week>' . date( 'W', $the_day ) . '</week>' : '' ) .
                     '</day>';
                     
                 }
                 
                 $content .= '</days></month>';
                 
+                logging( '... done' );
+                
             }
+            
+            logging( '... done' );
+            logging( 'output page ' . ( $page + 1 ) . ' ...' );
             
             $output = str_replace(
                 [ '[TITLE]', '[CONTENT]' ],
@@ -41,7 +60,11 @@
                 $output
             );
             
+            logging( '... done' );
+            
         }
+        
+        logging( '... done' );
         
     }
     
