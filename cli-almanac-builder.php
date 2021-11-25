@@ -8,13 +8,15 @@
     
     function run( int $year ) {
         
-        logging( 'build almanac for year ' . $year . ' ...' );
+        logging( 'build almanac for year ' . $year );
         
         for( $page = 0; $page <= 1; $page++ ) {
             
-            logging( 'build page ' . ( $page + 1 ) . ' of 2 ...' );
+            $pageno = $page + 1;
             
-            $title = $year . ', page ' . ( $page + 1 );
+            logging( 'build page ' . $pageno . ' of 2' );
+            
+            $title = $year . ' &ndash; page ' . $pageno . '/2';
             $content = '';
             
             for( $month = $page * 6 + 1; $month <= $page * 1 + 7; $month++ ) {
@@ -22,11 +24,10 @@
                 $the_month = mktime( 0, 0, 0, $month, 1, $year );
                 $month_name = date( 'F', $the_month );
                 
-                logging( 'build month ' . $month_name . ' of ' . $year . ' ...' );
+                logging( 'build month ' . $month_name . ' of ' . $year );
                 
                 $content .= '<month ' . strtolower( $month_name ) . '>' .
-                    '<name>' . $month_name . '</name>' .
-                    '<days>';
+                    '<h2>' . $month_name . '</h2>';
                 
                 for( $day = 1; $day <= date( 't', $the_month ); $day++ ) {
                     
@@ -34,20 +35,17 @@
                     $week_day = date( 'l', $the_day );
                     
                     $content .= '<day ' . strtolower( $week_day ) . '>' .
-                        '<number>' . date( 'j', $the_day ) . '</number>' .
+                        '<number>' . date( 'd', $the_day ) . '</number>' .
                         ( $week_day == 'Monday' ? '<week>' . date( 'W', $the_day ) . '</week>' : '' ) .
                     '</day>';
                     
                 }
                 
-                $content .= '</days></month>';
-                
-                logging( '... done' );
+                $content .= '</month>';
                 
             }
             
-            logging( '... done' );
-            logging( 'output page ' . ( $page + 1 ) . ' ...' );
+            logging( 'output page ' . $pageno );
             
             $output = str_replace(
                 [ '[TITLE]', '[CONTENT]' ],
@@ -56,15 +54,11 @@
             );
             
             file_put_contents(
-                'output/' . $year . '-' . ( $page + 1 ) . '.html',
+                'output/' . $year . '-' . $pageno . '.html',
                 $output
             );
             
-            logging( '... done' );
-            
         }
-        
-        logging( '... done' );
         
     }
     

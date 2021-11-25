@@ -6,7 +6,86 @@
         <title>[TITLE]</title>
         <style>
             
+            @import url( https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap );
             
+            body {
+                margin: 0;
+                background: #f5f5f5;
+            }
+            
+            * {
+                box-sizing: border-box;
+                font-family: 'Outfit', sans-serif;
+            }
+            
+            almanac {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: center;
+                align-items: flex-start;
+                margin: 1em auto;
+                width: 297mm;
+                height: 210mm;
+                padding: 10px;
+                background: #ffffff;
+                overflow: hidden;
+                box-shadow: 0 0 10px #d4d4d4;
+            }
+            
+            month {
+                flex: 1;
+                display: flex;
+                flex-flow: column nowrap;
+                padding: 2px 3px;
+                overflow: hidden;
+            }
+            
+            month > * {
+                border-radius: 4px;
+            }
+            
+            month h2 {
+                margin: 0 0 3px 0;
+                padding: 4px;
+                text-align: center;
+                text-transform: uppercase;
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                color: #ffffff;
+                background: #34568b;
+            }
+            
+            month day {
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                align-items: center;
+                margin: 1px 0;
+                padding: 3px 5px;
+                color: #1f3453;
+                background: #edf1f8;
+            }
+            
+            month day[saturday] {
+                background: #dbe3f1;
+            }
+            
+            month day[sunday] {
+                background: #c8d4ea;
+            }
+            
+            month day number {
+                font-size: 13px;
+                font-weight: 700;
+            }
+            
+            month day week {
+                float: right;
+                font-size: 10px;
+                font-weight: 700;
+                opacity: 0.5;
+            }
             
         </style>
     </head>
