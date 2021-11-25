@@ -9,13 +9,24 @@
             
             for( $month = $page * 6 + 1; $month <= $page * 1 + 7; $month++ ) {
                 
-                $the_month = strtotime( $month . '/1/' . $year );
+                $the_month = mktime( 0, 0, 0, $month, 1, $year );
+                $month_name = date( 'F', $the_month );
+                
+                $content .= '<month ' . strtolower( $month_name ) . '>' .
+                    '<name>' . $month_name . '</name>' .
+                    '<days>';
                 
                 for( $day = 1; $day <= date( 't', $the_month ); $day++ ) {
                     
+                    $the_day = mktime( 0, 0, 0, $month, $day, $year );
                     
+                    $content .= '<day ' . strtolower( date( 'l', $the_day ) ) . '>' .
+                        '<number>' . date( 'j', $the_day ) . '</number>' .
+                    '</day>';
                     
                 }
+                
+                $content .= '</days></month>';
                 
             }
             
