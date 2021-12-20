@@ -60,7 +60,7 @@
                 $the_month = mktime( 0, 0, 0, $month, 1, $year );
                 $month_name = $names['month'][ $month - 1 ];
 
-                logging( 'build month ' . $month_name . ' of ' . $year );
+                logging( 'build month ' . $month . ' of ' . $year );
 
                 $content .= '<month ' . strtolower( $month_name ) . '>' .
                     '<h2>' . $month_name . '</h2>';
@@ -87,7 +87,7 @@
                         '<space></space>' .
                         (
                             array_key_exists( $day_date, $moons )
-                                ? '<moon ' . $moons[ $day_date ] . '></moon>' : ''
+                                ? '<moon><img src="./../config/' . $moons[ $day_date ] . '.svg" width="14" height="14" /></moon>' : ''
                         ) .
                         (
                             $week_day == 'Monday'
