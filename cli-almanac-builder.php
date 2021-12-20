@@ -8,7 +8,11 @@
 
     function run( int $year ) {
 
-        logging( 'fetch holiday data' );
+        logging( 'load names' );
+
+        $names = json_decode( file_get_contents( __DIR__ . '/config/names.json' ), true );
+
+        logging( 'load holiday data' );
 
         $free = json_decode( file_get_contents( __DIR__ . '/config/free.json' ), true );
 
@@ -24,7 +28,7 @@
 
         }
 
-        logging( 'fetch moon data' );
+        logging( 'load moon data' );
 
         $moon = json_decode( file_get_contents( __DIR__ . '/config/moon.json' ), true );
 
@@ -54,7 +58,7 @@
             for( $month = $page * 6 + 1; $month <= $page * 6 + 6; $month++ ) {
 
                 $the_month = mktime( 0, 0, 0, $month, 1, $year );
-                $month_name = date( 'F', $the_month );
+                $month_name = $names['month'][ $month - 1 ];
 
                 logging( 'build month ' . $month_name . ' of ' . $year );
 
@@ -75,9 +79,7 @@
                             ? ' event' : ''
                     ) . '>' .
                         '<number>' . date( 'd', $the_day ) . '</number>' .
-                        '<name>' . [
-                            'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'
-                        ][ date( 'w', $the_day ) ] . '</name>' .
+                        '<name>' . $names['week'][ date( 'w', $the_day ) ] . '</name>' .
                         (
                             array_key_exists( $day_date, $free['events'] )
                                 ? '<event>' . $free['events'][ $day_date ] . '</event>' : ''
