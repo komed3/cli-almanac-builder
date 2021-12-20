@@ -87,7 +87,7 @@
                         '<space></space>' .
                         (
                             array_key_exists( $day_date, $moons )
-                                ? '<moon><img src="./../config/' . $moons[ $day_date ] . '.svg" width="12" height="12" /></moon>' : ''
+                                ? '<moon><img src="./../config/' . $moons[ $day_date ] . '.svg" width="10" height="10" /></moon>' : ''
                         ) .
                         (
                             $week_day == 'Monday'
