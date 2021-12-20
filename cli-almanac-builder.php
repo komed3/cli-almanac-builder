@@ -65,12 +65,13 @@
 
                     $the_day = mktime( 0, 0, 0, $month, $day, $year );
                     $week_day = date( 'l', $the_day );
+                    $day_date = date( 'Y-m-d', $the_day );
 
                     $content .= '<day ' . strtolower( $week_day ) . (
-                        in_array( date( 'Y-m-d', $the_day ), $holidays )
+                        in_array( $day_date, $holidays )
                             ? ' holiday' : ''
                     ) . (
-                        array_key_exists( date( 'Y-m-d', $the_day ), $free['events'] )
+                        array_key_exists( $day_date, $free['events'] )
                             ? ' event' : ''
                     ) . '>' .
                         '<number>' . date( 'd', $the_day ) . '</number>' .
@@ -78,11 +79,18 @@
                             'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'
                         ][ date( 'w', $the_day ) ] . '</name>' .
                         (
-                            array_key_exists( date( 'Y-m-d', $the_day ), $free['events'] )
-                            ? '<event>' . $free['events'][ date( 'Y-m-d', $the_day ) ] . '</event>' : ''
+                            array_key_exists( $day_date, $free['events'] )
+                                ? '<event>' . $free['events'][ $day_date ] . '</event>' : ''
                         ) .
                         '<space></space>' .
-                        ( $week_day == 'Monday' ? '<week>' . date( 'W', $the_day ) . '</week>' : '' ) .
+                        (
+                            array_key_exists( $day_date, $moons )
+                                ? '<moon ' . $moons[ $day_date ] . '></moon>' : ''
+                        ) .
+                        (
+                            $week_day == 'Monday'
+                                ? '<week>' . date( 'W', $the_day ) . '</week>' : ''
+                        ) .
                     '</day>';
 
                 }
