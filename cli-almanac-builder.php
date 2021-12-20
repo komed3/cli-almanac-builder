@@ -24,6 +24,22 @@
 
         }
 
+        logging( 'fetch moon data' );
+
+        $moon = json_decode( file_get_contents( __DIR__ . '/config/moon.json' ), true );
+
+        $moons = [];
+
+        foreach( $moon as $phase => $dates ) {
+
+            foreach( $dates as $date ) {
+
+                $moons[ $date ] = $phase;
+
+            }
+
+        }
+
         logging( 'build almanac for year ' . $year );
 
         for( $page = 0; $page <= 1; $page++ ) {
