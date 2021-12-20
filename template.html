@@ -5,19 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>[TITLE]</title>
         <style>
-            
+
             @import url( https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap );
-            
+
             body {
                 margin: 0;
                 background: #f5f5f5;
             }
-            
+
             * {
                 box-sizing: border-box;
                 font-family: 'Outfit', sans-serif;
             }
-            
+
             almanac {
                 display: flex;
                 flex-flow: row nowrap;
@@ -31,7 +31,7 @@
                 overflow: hidden;
                 box-shadow: 0 0 10px #d4d4d4;
             }
-            
+
             month {
                 flex: 1;
                 display: flex;
@@ -39,11 +39,11 @@
                 padding: 2.5px 3px;
                 overflow: hidden;
             }
-            
+
             month > * {
                 border-radius: 4px;
             }
-            
+
             month h2 {
                 margin: 0 0 5px 0;
                 padding: 3px;
@@ -55,7 +55,7 @@
                 color: #ffffff;
                 background: #34568b;
             }
-            
+
             month day {
                 position: relative;
                 display: flex;
@@ -68,15 +68,15 @@
                 background: #edf1f8;
                 overflow: hidden;
             }
-            
+
             month day[saturday] {
                 background: #dbe3f1;
             }
-            
+
             month day[sunday] {
                 background: #c8d4ea;
             }
-            
+
             month day[holiday]::before,
             month day[event]::before {
                 content: "";
@@ -88,24 +88,24 @@
                 background: #e3c9a6;
                 opacity: 0.3;
             }
-            
+
             month day[event]::before {
                 opacity: 0.8;
             }
-            
+
             month day number {
                 padding-right: 4px;
                 font-size: 13px;
                 z-index: 1;
                 font-weight: 700;
             }
-            
+
             month day name {
                 padding-right: 4px;
                 font-size: 12px;
                 z-index: 1;
             }
-            
+
             month day event {
                 padding-right: 4px;
                 font-size: 11px;
@@ -113,20 +113,45 @@
                 opacity: 0.7;
                 z-index: 1;
             }
-            
+
             month day space {
                 flex: 1;
             }
-            
+
+            month day moon {
+                align-self: center;
+                width: 14px;
+                height: 14px;
+                background-size: contain;
+                opacity: 0.6;
+            }
+
+            month day moon[new] {
+                background-image: url( ./../config/new.png );
+            }
+
+            month day moon[waxing] {
+                background-image: url( ./../config/waxing.png );
+            }
+
+            month day moon[full] {
+                background-image: url( ./../config/full.png );
+            }
+
+            month day moon[waning] {
+                background-image: url( ./../config/waning.png );
+            }
+
             month day week {
                 align-self: flex-start;
+                padding-left: 4px;
                 text-align: right;
                 font-size: 10px;
                 font-weight: 700;
                 opacity: 0.5;
                 z-index: 1;
             }
-            
+
         </style>
     </head>
     <body>
