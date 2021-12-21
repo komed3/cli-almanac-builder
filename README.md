@@ -13,6 +13,36 @@ cli-almanac-builder requires PHP to run on terminal (Windows and Linux tested)
 + start ``cli-almanac-builder.php`` from CLI with year to build
 + get almanac from output directory
 
+## Customisation
+
+### ``config/free.json``
+
+Events and holidays for almanac builder:
+
++ ``events``: holidays indicated in the Almanac by their name
++ ``holidays``: school holidays, shown with a different coloured background
+
+```json
+{
+  "events": {
+    "2022-01-01": "New Year’s Day",
+    ...
+  },
+  "holidays": [
+    { "from": "2021-12-20", "to": "2022-01-03" },
+    ...
+  ]
+}
+```
+
+### ``config/names.json``
+
+Change output language for week day (starts with sonday) and month names.
+
+### ``config/moon.json``
+
+Moon phases for almanac builder.
+
 ## Example
 
 ```console
