@@ -110,7 +110,7 @@
             );
 
             file_put_contents(
-                'output/' . $year . '-' . $pageno . '.html',
+                __DIR__ . '/output/' . $year . '-' . $pageno . '.html',
                 $output
             );
 
